@@ -1,0 +1,131 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                CX7 网卡带宽查询工具集 - 使用说明                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+📦 已创建的文件:
+
+【可执行工具】(5个)
+  1. quick_check_nic.sh        - 快速检查脚本 (8.5K)
+  2. check_nic_bandwidth.py    - 完整检测工具 (7.8K)
+  3. monitor_bandwidth.py      - 实时监控工具 (11K)
+  4. install_tools.sh          - 工具安装脚本 (9.5K)
+  5. test_all_tools.sh         - 测试脚本 (2.9K)
+
+【文档资料】(4个)
+  1. QUICK_START_CN.md         - 快速入门指南 (8.0K) ⭐推荐新用户
+  2. README_NIC_BANDWIDTH.md   - 完整说明文档 (7.8K)
+  3. CX7_NIC_BANDWIDTH_GUIDE.md- 详细操作指南 (11K)
+  4. NIC_TOOLS_INDEX.md        - 工具集索引 (11K)
+
+═══════════════════════════════════════════════════════════════════════
+
+🚀 三步快速上手:
+
+步骤 1: 快速检查当前系统
+  cd /workspace
+  ./quick_check_nic.sh
+
+步骤 2: 安装必要工具（如果步骤1提示缺少工具）
+  sudo ./install_tools.sh
+  # 选择选项 4（安装所有工具）
+
+步骤 3: 开始监控带宽
+  # 先列出所有接口
+  python3 monitor_bandwidth.py -l
+  
+  # 监控指定接口（例如 eth0）
+  python3 monitor_bandwidth.py eth0
+
+═══════════════════════════════════════════════════════════════════════
+
+📖 推荐阅读顺序:
+
+新用户:
+  1. 先看: QUICK_START_CN.md
+  2. 运行: ./quick_check_nic.sh
+  3. 监控: python3 monitor_bandwidth.py eth0
+
+有经验用户:
+  1. 查看: NIC_TOOLS_INDEX.md
+  2. 参考: CX7_NIC_BANDWIDTH_GUIDE.md
+
+═══════════════════════════════════════════════════════════════════════
+
+🔍 常用命令速查:
+
+【查看网卡速率】
+  cat /sys/class/net/eth0/speed
+  ethtool eth0 | grep Speed
+  
+【列出所有网络接口】
+  python3 monitor_bandwidth.py -l
+  ls /sys/class/net/
+
+【实时监控带宽】
+  python3 monitor_bandwidth.py eth0              # 基础模式
+  python3 monitor_bandwidth.py eth0 -p -e        # 详细模式
+  python3 monitor_bandwidth.py eth0 -u mbps      # 使用 Mbps
+
+【完整系统检测】
+  ./quick_check_nic.sh
+  python3 check_nic_bandwidth.py
+
+【安装工具】
+  sudo ./install_tools.sh
+
+【查看帮助】
+  python3 monitor_bandwidth.py -h
+
+═══════════════════════════════════════════════════════════════════════
+
+💡 重要提示:
+
+1. CX7 网卡支持的最高速率:
+   - InfiniBand NDR: 400 Gbps
+   - InfiniBand HDR: 200 Gbps
+   - Ethernet: 400GbE / 200GbE
+
+2. 如果速率显示为 "Unknown" 或 "-1":
+   - 可能是虚拟接口（如 docker0）
+   - 可能未连接网线
+   - 尝试使用: ethtool eth0
+
+3. 实时监控按 Ctrl+C 停止，会显示累计统计
+
+4. 当前环境检测结果（运行 quick_check_nic.sh 查看）:
+   - 发现接口: eth0 (up), docker0 (down)
+   - 缺少工具: ethtool, lspci, ibstat 等
+   - 建议: 运行 install_tools.sh 安装
+
+═══════════════════════════════════════════════════════════════════════
+
+📞 需要帮助?
+
+【查看文档】
+  cat QUICK_START_CN.md         # 快速入门
+  less CX7_NIC_BANDWIDTH_GUIDE.md  # 详细指南
+
+【查看工具帮助】
+  python3 monitor_bandwidth.py -h
+
+【测试工具】
+  ./test_all_tools.sh
+
+【系统诊断】
+  dmesg | grep mlx5             # 查看网卡驱动日志
+  lsmod | grep mlx5             # 查看内核模块
+
+═══════════════════════════════════════════════════════════════════════
+
+✅ 开始使用:
+
+# 第一次使用，建议按照以下顺序:
+cat QUICK_START_CN.md         # 1. 先阅读快速入门
+./quick_check_nic.sh          # 2. 快速检查系统
+sudo ./install_tools.sh       # 3. 安装必要工具（如需要）
+python3 monitor_bandwidth.py -l  # 4. 列出网络接口
+python3 monitor_bandwidth.py eth0  # 5. 开始监控
+
+祝使用愉快！
+
+═══════════════════════════════════════════════════════════════════════
